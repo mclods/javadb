@@ -1,2 +1,2 @@
-# javadb
-Database Application using Java
+# java-db
+Database Application made using Java.
