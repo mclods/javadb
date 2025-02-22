@@ -13,6 +13,6 @@ public class AuthorDaoImpl implements AuthorDao {
 
     @Override
     public void create(Author author) {
-        jdbcTemplate.update("INSERT INTO author (name, age) VALUES (?, ?)", author.getName(), author.getAge());
+        jdbcTemplate.update("INSERT INTO author(name, age) VALUES(?, ?)", author.getName(), author.getAge());
     }
 }
