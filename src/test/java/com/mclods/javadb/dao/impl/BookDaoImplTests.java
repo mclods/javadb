@@ -1,5 +1,6 @@
 package com.mclods.javadb.dao.impl;
 
+import com.mclods.javadb.TestDataUtils;
 import com.mclods.javadb.domain.Book;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 
@@ -23,9 +25,23 @@ public class BookDaoImplTests {
     @Test
     @DisplayName("Test create generates correct sql")
     void testCreateGeneratesCorrectSql() {
-        Book book = Book.builder().isbn("978-1-2345-6789-0").title("The Shadow in the Attic").authorId(1).build();
+        Book book = TestDataUtils.testBook();
 
         bookDaoImpl.create(book);
-        verify(jdbcTemplate).update(eq("INSERT INTO book(title, author_id, isbn) VALUES(?, ?, ?)"), eq("The Shadow in the Attic"), eq(1), eq("978-1-2345-6789-0"));
+        verify(jdbcTemplate).update(eq("INSERT INTO book(title, isbn, author_id) VALUES(?, ?, ?)"),
+                eq("The Shadow in the Attic"),
+                eq("978-1-2345-6789-0"),
+                eq(1));
+    }
+
+    @Test
+    @DisplayName("Test findOne generates correct sql")
+    void testFindOneGeneratesCorrectSql() {
+        String isbn = "978-1-2345-6789-0";
+
+        bookDaoImpl.findOne(isbn);
+        verify(jdbcTemplate).query(eq("SELECT title, isbn, author_id FROM book WHERE isbn = ? LIMIT 1"),
+                any(BookDaoImpl.BookRowMapper.class),
+                eq(isbn));
     }
 }
