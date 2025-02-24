@@ -66,4 +66,19 @@ public class Book {
             return new Book(isbn, title, authorId);
         }
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(this == obj) {
+            return true;
+        }
+
+        if(!(obj instanceof Book bookObj)) {
+            return false;
+        }
+
+        return this.title.equals(bookObj.getTitle()) &&
+                this.isbn.equals(bookObj.getIsbn()) &&
+                this.authorId.equals(bookObj.getAuthorId());
+    }
 }

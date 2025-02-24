@@ -29,8 +29,8 @@ public class AuthorDaoImplTests {
 
         authorDaoImpl.create(author);
         verify(jdbcTemplate).update(eq("INSERT INTO author(name, age) VALUES(?, ?)"),
-                eq("Abigail Rose"),
-                eq((short)80));
+                eq(author.getName()),
+                eq(author.getAge()));
     }
 
     @Test

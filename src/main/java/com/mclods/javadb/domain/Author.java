@@ -68,4 +68,19 @@ public class Author {
             return new Author(id, name, age);
         }
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(this == obj) {
+            return true;
+        }
+
+        if(!(obj instanceof Author authorObj)) {
+            return false;
+        }
+
+        return this.id.equals(authorObj.getId()) &&
+                this.name.equals(authorObj.getName()) &&
+                this.age.equals(authorObj.getAge());
+    }
 }
