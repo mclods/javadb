@@ -7,7 +7,7 @@ public class TestDataUtils {
     private TestDataUtils() { }
 
     public static Author testAuthor() {
-        return Author.builder().name("Abigail Rose").age((short)80).build();
+        return Author.builder().id(1).name("Abigail Rose").age((short)80).build();
     }
 
     public static Book testBook() {
