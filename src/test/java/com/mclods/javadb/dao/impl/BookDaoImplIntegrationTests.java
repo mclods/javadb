@@ -29,7 +29,7 @@ public class BookDaoImplIntegrationTests {
     @Test()
     @DisplayName("Test book can be created and recalled")
     void testBookCanBeCreatedAndRecalled() {
-        Author author = TestDataUtils.testAuthorA();
+        Author author = TestDataUtils.testAuthor();
         Book book = TestDataUtils.testBook();
 
         authorDao.create(author);
