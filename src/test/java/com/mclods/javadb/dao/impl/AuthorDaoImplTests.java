@@ -25,7 +25,7 @@ public class AuthorDaoImplTests {
     @Test
     @DisplayName("Test create generates correct sql")
     void testCreateGeneratesCorrectSql() {
-        Author author = TestDataUtils.testAuthor();
+        Author author = TestDataUtils.testAuthorA();
 
         authorDaoImpl.create(author);
         verify(jdbcTemplate).update(eq("INSERT INTO author(id, name, age) VALUES(?, ?, ?)"),
@@ -43,5 +43,12 @@ public class AuthorDaoImplTests {
         verify(jdbcTemplate).query(eq("SELECT id, name, age FROM author WHERE id = ? LIMIT 1"),
                 any(AuthorDaoImpl.AuthorRowMapper.class),
                 eq(id));
+    }
+
+    @Test
+    @DisplayName("Test find generates correct sql")
+    void testFindGeneratesCorrectSql() {
+        authorDaoImpl.find();
+        verify(jdbcTemplate).query(eq("SELECT id, name, age FROM author"), any(AuthorDaoImpl.AuthorRowMapper.class));
     }
 }

@@ -26,11 +26,27 @@ public class AuthorDaoImplIntegrationTests {
     @Test
     @DisplayName("Test author can be created and recalled")
     void testAuthorCanBeCreatedAndRecalled() {
-        Author author = TestDataUtils.testAuthor();
+        Author author = TestDataUtils.testAuthorA();
 
         authorDaoImpl.create(author);
         Optional<Author> result = authorDaoImpl.findOne(1);
         assertThat(result).isPresent();
         assertThat(result.get()).isEqualTo(author);
+    }
+
+    @Test
+    @DisplayName("Test multiple authors can be created and recalled")
+    void testMultipleAuthorsCanBeCreatedAndRecalled() {
+        Author authorA = TestDataUtils.testAuthorA();
+        Author authorB = TestDataUtils.testAuthorB();
+        Author authorC = TestDataUtils.testAuthorC();
+
+        authorDaoImpl.create(authorA);
+        authorDaoImpl.create(authorB);
+        authorDaoImpl.create(authorC);
+
+        List<Author> result = authorDaoImpl.find();
+        assertThat(result).hasSize(3);
+        assertThat(result).containsExactly(authorA, authorB, authorC);
     }
 }
