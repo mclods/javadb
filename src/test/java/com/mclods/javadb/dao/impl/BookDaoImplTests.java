@@ -25,7 +25,7 @@ public class BookDaoImplTests {
     @Test
     @DisplayName("Test create generates correct sql")
     void testCreateGeneratesCorrectSql() {
-        Book book = TestDataUtils.testBook();
+        Book book = TestDataUtils.testBookA();
 
         bookDaoImpl.create(book);
         verify(jdbcTemplate).update(eq("INSERT INTO book(title, isbn, author_id) VALUES(?, ?, ?)"),
@@ -43,5 +43,12 @@ public class BookDaoImplTests {
         verify(jdbcTemplate).query(eq("SELECT title, isbn, author_id FROM book WHERE isbn = ? LIMIT 1"),
                 any(BookDaoImpl.BookRowMapper.class),
                 eq(isbn));
+    }
+
+    @Test
+    @DisplayName("Test find generates correct sql")
+    void testFindGeneratesCorrectSql() {
+        bookDaoImpl.find();
+        verify(jdbcTemplate).query(eq("SELECT title, isbn, author_id FROM book"), any(BookDaoImpl.BookRowMapper.class));
     }
 }
