@@ -8,12 +8,14 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest
+@Transactional
 public class BookDaoImplIntegrationTests {
     private final AuthorDao authorDao;
     private final BookDaoImpl bookDaoImpl;
@@ -27,7 +29,7 @@ public class BookDaoImplIntegrationTests {
     @Test()
     @DisplayName("Test book can be created and recalled")
     void testBookCanBeCreatedAndRecalled() {
-        Author author = TestDataUtils.testAuthor();
+        Author author = TestDataUtils.testAuthorA();
         Book book = TestDataUtils.testBook();
 
         authorDao.create(author);
