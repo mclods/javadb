@@ -49,6 +49,21 @@ public class BookDaoImplTests {
     @DisplayName("Test find generates correct sql")
     void testFindGeneratesCorrectSql() {
         bookDaoImpl.find();
-        verify(jdbcTemplate).query(eq("SELECT title, isbn, author_id FROM book"), any(BookDaoImpl.BookRowMapper.class));
+        verify(jdbcTemplate).query(eq("SELECT title, isbn, author_id FROM book"),
+                any(BookDaoImpl.BookRowMapper.class));
+    }
+
+    @Test
+    @DisplayName("Test update generates correct sql")
+    void testUpdateGeneratesCorrectSql() {
+        String isbn = "some_random_isbn_123";
+        Book book = TestDataUtils.testBookA();
+
+        bookDaoImpl.update(isbn, book);
+        verify(jdbcTemplate).update(eq("UPDATE book SET title = ?, isbn = ?, author_id = ? WHERE isbn = ?"),
+                eq(book.getTitle()),
+                eq(book.getIsbn()),
+                eq(book.getAuthorId()),
+                eq(isbn));
     }
 }

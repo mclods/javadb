@@ -51,4 +51,18 @@ public class AuthorDaoImplTests {
         authorDaoImpl.find();
         verify(jdbcTemplate).query(eq("SELECT id, name, age FROM author"), any(AuthorDaoImpl.AuthorRowMapper.class));
     }
+
+    @Test
+    @DisplayName("Test update generates correct sql")
+    void testUpdateGeneratesCorrectSql() {
+        Integer id = 1;
+        Author author = TestDataUtils.testAuthorA();
+
+        authorDaoImpl.update(id, author);
+        verify(jdbcTemplate).update(eq("UPDATE author SET id = ?, name = ?, age = ? WHERE id = ?"),
+                eq(author.getId()),
+                eq(author.getName()),
+                eq(author.getAge()),
+                eq(id));
+    }
 }

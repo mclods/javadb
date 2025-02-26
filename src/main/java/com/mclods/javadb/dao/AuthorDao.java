@@ -9,4 +9,5 @@ public interface AuthorDao {
     void create(Author author);
     Optional<Author> findOne(Integer authorId);
     List<Author> find();
+    void update(Integer id, Author author);
 }

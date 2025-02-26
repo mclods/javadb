@@ -30,7 +30,7 @@ public class TestDataUtils {
         return Book.builder()
                 .isbn("978-9-2022-6589-9")
                 .title("The Whispering Shadows")
-                .authorId(1)
+                .authorId(2)
                 .build();
     }
 
@@ -38,7 +38,7 @@ public class TestDataUtils {
         return Book.builder()
                 .isbn("978-3-3921-5711-8")
                 .title("Echoes of the Forgotten Realm")
-                .authorId(1)
+                .authorId(3)
                 .build();
     }
 }
