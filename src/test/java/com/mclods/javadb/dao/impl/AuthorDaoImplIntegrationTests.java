@@ -59,11 +59,26 @@ public class AuthorDaoImplIntegrationTests {
         authorDaoImpl.create(author);
 
         // Updated Author
-        Author updatedAuthor = Author.builder().id(123).name("Superman").age((short)40).build();
+        Author updatedAuthor = Author.builder()
+                .id(123)
+                .name("Superman")
+                .age((short)40)
+                .build();
 
         authorDaoImpl.update(id, updatedAuthor);
         Optional<Author> result = authorDaoImpl.findOne(updatedAuthor.getId());
         assertThat(result).isPresent();
         assertThat(result.get()).isEqualTo(updatedAuthor);
+    }
+
+    @Test
+    @DisplayName("Test author can be deleted")
+    void testAuthorCanBeDeleted() {
+        Author author = TestDataUtils.testAuthorA();
+
+        authorDaoImpl.create(author);
+        authorDaoImpl.delete(author.getId());
+        Optional<Author> result = authorDaoImpl.findOne(author.getId());
+        assertThat(result).isEmpty();
     }
 }

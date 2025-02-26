@@ -66,4 +66,13 @@ public class BookDaoImplTests {
                 eq(book.getAuthorId()),
                 eq(isbn));
     }
+
+    @Test
+    @DisplayName("Test delete generates correct sql")
+    void testDeleteGeneratesCorrectSql() {
+        String isbn = "some_random_isbn_123";
+
+        bookDaoImpl.delete(isbn);
+        verify(jdbcTemplate).update(eq("DELETE FROM book WHERE isbn = ?"), eq(isbn));
+    }
 }

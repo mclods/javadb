@@ -65,4 +65,13 @@ public class AuthorDaoImplTests {
                 eq(author.getAge()),
                 eq(id));
     }
+
+    @Test
+    @DisplayName("Test delete generates correct sql")
+    void testDeleteGeneratesCorrectSql() {
+        Integer id = 1;
+
+        authorDaoImpl.delete(id);
+        verify(jdbcTemplate).update(eq("DELETE FROM author WHERE id = ?"), eq(id));
+    }
 }
