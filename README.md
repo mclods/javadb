@@ -1,2 +1,2 @@
 # java-db
-Database Application made using Java.
+Database Application made using Spring JDBCTemplate.
